@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+
+<body>
+    <div id="wrapper">
+        <h1>Welcome, {{user.firstName.capitalize}} {{user.lastName.capitalize}}</h1>
+        <h3>Quotes you have not liked</h3>
+        {% for quote in unlikedQuotes %}
+        <div class="quote">
+            <p>{{quote.quote}} -{{quote.author.capitalize}}-</p>
+            <p1>Uploader: <a href="/userQuote/{{quote.uploader.id}}">{{quote.uploader.firstName.capitalize}}</a></p1>
+            <br>
+            <p1>{{quote.likes.all.count}} people have liked this quote</p1>
+            <br>
+            <p3><a href="/like/{{quote.id}}">Like</a>{% if user == quote.uploader %}<a href="/delete/{{quote.id}}"> | Delete</a>{% endif %}</p3>
+        </div>
+        {% endfor %}
+        <h4>Quotes that you liked/ or are yours</h4>
+        {% for quote in likedQuotes %}
+        <div class="quote">
+            <p>{{quote.quote}} -{{quote.author.capitalize}}-</p>
+            <p1>Uploader: <a href="/userQuote/{{quote.uploader.id}}">{{quote.uploader.firstName.capitalize}}</a></p1>
+            <p1>{{quote.likes.all.count}} people have liked this quote</p1>
+            <br>
+            <p3>{% if user == quote.uploader %}<a href="/delete/{{quote.id}}">Delete</a>{% endif %}</p3></p3>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="wrapper1">
+        <h2><a href="/editUser">Edit Account</a> | <a href="http://localHost:8000/destroySession">Log Out</a></h2>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/addQuote" method="POST">
+        {% csrf_token %}
+        <p>Author:</p>
+        <input type="text" name="author">
+        <p>Add a quote here:</p>
+        <textarea name="quote" id="" cols="30" rows="10"></textarea>
+        <p><input type="submit" value="Add"></p>
+        </form>
+    </div>
+</body>
+
+</html>

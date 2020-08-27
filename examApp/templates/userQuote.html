@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+
+<body>
+    <h5>Logged in as {{iUser.firstName.capitalize}} {{iUser.lastName.capitalize}}</h5>
+    <br>
+    <div id="wrapper">
+        <h1>All Quotes from {{user.firstName.capitalize}} {{user.lastName.capitalize}}</h1>
+        <h3>Quotes</h3>
+        {% for quote in userQuotes %}
+        <div class="quote">
+            <p>{{quote.quote}} -{{quote.author.capitalize}}-</p>
+            <p1>Uploader: <a href="/userQuote/{{quote.uploader.id}}">{{quote.uploader.firstName.capitalize}}</a></p1>
+        </div>
+        {% endfor %}  
+        <h5><a href="/goHome">Home</a> | <a href="/destroySession">Logout</a></h5>
+    </div>
+</body>
+
+</html>

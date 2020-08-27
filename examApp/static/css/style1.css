@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+#wrapper{
+    width: 700px;
+}
+h2{
+    text-align: end;
+}
+h3{
+margin-left: 80px;
+}
+h4{
+    margin-left: 65px;
+}
+.quote{
+    width: 300px;
+    border: 1px black solid;
+    margin: 20px;
+    padding: 10px;
+}
